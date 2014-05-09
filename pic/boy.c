@@ -1,4 +1,8 @@
 /*
+ * Program tested and run Mac 0S 10.9.2
+ * compiler : gcc 4.2.1
+*/
+/*
  * This is a fun program.
  * Runs infinitely
  * Altering steps ( like dancing )
