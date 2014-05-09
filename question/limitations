@@ -1,0 +1,11 @@
+Here are the following limitations:
+1. If Input:
+	non - integer:
+	executing but no display message for user.
+2. If num_of_threads = -ve
+
+3. If interval  = non-positive:
+	sum = 0(always)
+
+4. Need to display a list of threads for which sum is out of range.
+5. Line # 52: allocated memory dynamically(using malloc), but no check condition, whether memory is allocated successfully or not. 

@@ -1,0 +1,5 @@
+#!/bin/bash
+gcc testFunction.c
+./a.out $1 $2
+gcc final.c
+./a.out

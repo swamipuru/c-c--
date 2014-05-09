@@ -1,0 +1,151 @@
+1:
+	program compiled with command:
+	 gcc -lpthread -o 4771 4771.c
+	Running:
+	 ./4771 20 30
+	functioning correctly.
+2:
+	YES, possible.
+	(Problems found:)
+		1. There was no check for memory allocation, whether memory has been allocated properly or not.
+		2. Pointer was not freed at the end, that leaves a memory leak.
+
+		3. Need to put some check conditio for the number of input arguments. (Minimun two arguments are required)
+		4. Need to check the argument passed is number only (No special character or string).
+		5. If the sum function returns [sum/result] out of INT range, then we need to maintain the list of possible and not possible threads. 
+3:
+	Below are the result of tools running for the program:
+	RATS tool analysis:
+	Analyzing 4471.c
+	Total lines analyzed: 97
+	Total time 0.012218 seconds
+	7939 lines per second
+
+
+	Flowfinder tool analysis:
+	4471.c:75:  [2] (integer) atoi:
+	Unless checked, the resulting number can exceed the expected range. 
+  	If source untrusted, check both minimum and maximum, even if the input
+  	had no minus sign (large numbers can roll over into negative number;
+  	consider saving to an unsigned value if that is intended). 
+
+	Hits = 2
+	Lines analyzed = 96 in 0.51 seconds (8179 lines/second)
+	Physical Source Lines of Code (SLOC) = 86
+	Hits@level = [0]   0 [1]   0 [2]   2 [3]   0 [4]   0 [5]   0
+	Hits@level+ = [0+]   2 [1+]   2 [2+]   2 [3+]   0 [4+]   0 [5+]   0
+	Hits/KSLOC@level+ = [0+] 23.2558 [1+] 23.2558 [2+] 23.2558 [3+]   0 [4+]   0 [5+]   0
+	Minimum risk level = 1
+	Not every hit is necessarily a security vulnerability.
+	There may be other security vulnerabilities; review your code!
+4:	
+
+	Penetration Testing:
+	1. Testing without passing any command line-arguments.(Failed)
+	   run: ./4771
+ 	   output:
+		Segmentation fault: 11
+	2. Testing with passing only one argument.(Failed)
+	   run: ./4771
+           output:
+                Segmentation fault: 11
+	3. Testing with special characters [`] (Failed)
+	   run: ./4471 ` `
+	   outuput:
+		Segmentation fault: 11
+	4.Testing with alphabetical input as commnad line arguments.(Success)
+	 run: ./4471 a b
+	 output: Program run duration was : 5 microseconds
+        5. Testing with special characters(Failed):
+	 run:  ./4471 # %
+	 output: Segmentation fault: 11
+	6. Testing with float values(success)
+	   Converts float to Int
+ 	 run: ./4471 2.5 3.1
+	 output: 
+		start interval : 0, thread id : 0, sum : 3
+		run duration : 39 microseconds
+		start interval : 3, thread id : 1, sum : 12
+		run duration : 5 microseconds
+		Program run duration was : 118 microseconds
+	7. Testing with valid integer values(in range of )(Success):
+	 run: ./4471 10 500
+	 output:
+	 start interval : 0, thread id : 0, sum : 124750
+	 run duration : 44 microseconds
+	 start interval : 500, thread id : 1, sum : 374750
+ 	 run duration : 9 microseconds
+	 start interval : 1000, thread id : 2, sum : 624750
+	 run duration : 6 microseconds
+	 start interval : 1500, thread id : 3, sum : 874750
+	 run duration : 5 microseconds
+	 start interval : 2000, thread id : 4, sum : 1124750
+	 run duration : 8 microseconds
+	 start interval : 2500, thread id : 5, sum : 1374750
+	 run duration : 6 microseconds
+	 start interval : 3000, thread id : 6, sum : 1624750
+	 run duration : 7 microseconds
+	 start interval : 3500, thread id : 7, sum : 1874750
+	 run duration : 5 microseconds
+	 start interval : 4000, thread id : 8, sum : 2124750
+	 run duration : 5 microseconds
+	 start interval : 4500, thread id : 9, sum : 2374750
+	 run duration : 5 microseconds
+	 Program run duration was : 408 microseconds
+	8. Testing with integer non-positive values:
+	 a:num_of_threads = -ve and interval = +ve(Success) 
+	 run: ./4471 -10 5
+	 output:
+	 Program run duration was : 2 microseconds
+	 b: num_of_threads = +ve and interval = -ve(Success)
+	  run: ./4471 10 -5
+	  output:
+	  start interval : 0, thread id : 0, sum : 0
+	  run duration : 40 microseconds
+	  start interval : -5, thread id : 1, sum : 0
+	  run duration : 5 microseconds
+	  start interval : -10, thread id : 2, sum : 0
+	  run duration : 4 microseconds
+	  start interval : -15, thread id : 3, sum : 0
+	  run duration : 6 microseconds
+	  start interval : -20, thread id : 4, sum : 0
+	  run duration : 7 microseconds
+	  start interval : -25, thread id : 5, sum : 0
+	  run duration : 6 microseconds
+	  start interval : -30, thread id : 6, sum : 0
+	  run duration : 7 microseconds
+	  start interval : -35, thread id : 7, sum : 0
+	  run duration : 6 microseconds
+	  start interval : -40, thread id : 8, sum : 0
+	  run duration : 7 microseconds
+	  start interval : -45, thread id : 9, sum : 0
+	  run duration : 6 microseconds
+	  Program run duration was : 443 microseconds
+	C: both as -ve(Success)
+	 run: ./4471 -10 -5
+	 output: Program run duration was : 2 microseconds
+	9. Testing with Integer input but out of range(Fail):
+	 run : ./4471 10 2147483648
+	 output:
+	 start interval : 0, thread id : 0, sum : 0
+	 run duration : 13 microseconds
+	 start interval : -2147483648, thread id : 1, sum : 0
+	 run duration : 7 microseconds
+	 start interval : 0, thread id : 2, sum : 0
+	 run duration : 5 microseconds
+	 start interval : -2147483648, thread id : 3, sum : 0
+	 run duration : 4 microseconds
+	 start interval : 0, thread id : 4, sum : 0
+	 run duration : 5 microseconds
+	 start interval : -2147483648, thread id : 5, sum : 0
+	 run duration : 5 microseconds
+	 start interval : 0, thread id : 6, sum : 0
+	 run duration : 6 microseconds
+	 start interval : -2147483648, thread id : 7, sum : 0
+	 run duration : 6 microseconds
+	 start interval : 0, thread id : 8, sum : 0
+	 run duration : 4 microseconds
+	 start interval : -2147483648, thread id : 9, sum : 0
+	 run duration : 7 microseconds
+	 Program run duration was : 395 microseconds
+

@@ -1,0 +1,243 @@
+/*
+ * This is a fun program.
+ * Runs infinitely
+ * Altering steps ( like dancing )
+*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+int displace = 30;
+
+void moveCursor(int displacement){
+  int x = 0;
+  for(x = 0; x<displacement;x++)
+    printf(" ");
+}
+
+void drawFace(){
+  int x=0;
+  for(x = 0;x<3; x++){
+    moveCursor(displace-x);
+    printf("(");
+    if(x == 2){
+      printf(". .");
+    }else
+      moveCursor(x);
+    printf(")\n");
+  }
+
+  for(x = 2;x>0; x--){
+    moveCursor(displace-x);
+    printf("(");
+    if(x == 2){
+      printf(" . ");
+    }else
+    moveCursor(x);
+    printf(")\n");
+  }
+}
+
+
+void printAlterUpperBody(){
+  int x = 0;
+  moveCursor(displace-11);
+  printf("\\");
+  moveCursor(4);
+  printf("/|");
+  moveCursor(10);
+  printf("|\\\n");
+
+  moveCursor(displace-10);
+  printf("\\");
+  moveCursor(2);
+  printf("/ |");
+  moveCursor(10);
+  printf("| \\\n");
+
+  moveCursor(displace-9);
+  printf("\\/  |");
+  moveCursor(10);
+  printf("|  \\\n");
+
+  moveCursor(displace-8);
+  printf("   |");
+  moveCursor(2);
+  printf("$sudo");
+  moveCursor(3);
+  printf("|  /\n");
+
+  moveCursor(displace-7);
+  printf("  |");
+  moveCursor(10); 
+  printf("| /\n");
+
+  moveCursor(displace-6);
+  printf(" |");
+  moveCursor(10);
+  printf("|/\n");
+
+  moveCursor(displace-5);
+  printf("|");
+  for(x=0;x<10;x++)
+    printf("_");
+  printf("|\n");
+}
+
+
+
+void printUpperBody(){
+  int x = 0;
+
+  moveCursor(displace-6);
+  printf("/|");
+  moveCursor(10);
+  printf("|\\    /\n");
+
+  moveCursor(displace-7);
+  printf("/ |");
+  moveCursor(10);
+  printf("| \\  /\n");
+
+  moveCursor(displace-8);
+  printf("/  |");
+  moveCursor(10);
+  printf("|  \\/\n");
+
+  moveCursor(displace-8);
+  printf("\\  |");
+  moveCursor(2);
+  printf("$sudo");
+  moveCursor(3);
+  printf("|\n");
+
+  moveCursor(displace-7);
+  printf("\\ |");
+  moveCursor(10); 
+  printf("|\n");
+
+  moveCursor(displace-6);
+  printf("\\|");
+  moveCursor(10);
+  printf("|\n");
+
+  moveCursor(displace-5);
+  printf("|");
+  for(x=0;x<10;x++)
+    printf("_");
+  printf("|\n");
+}
+
+void printLowerBody(){
+  moveCursor(displace-5);
+  printf("|");
+  moveCursor(4);
+  printf("/");
+  printf("\\");
+  moveCursor(4);
+  printf("|\n");
+
+  moveCursor(displace-5);
+  printf("|");
+  moveCursor(3);
+  printf("/");
+  moveCursor(2);
+  printf("\\");
+  moveCursor(3);
+  printf("|\n");
+
+  moveCursor(displace-5);
+  printf("|");
+  moveCursor(2);
+  printf("/");
+  moveCursor(4);
+  printf("\\");
+  moveCursor(2);
+  printf("|\n");
+
+  moveCursor(displace-5);
+  printf("| |");
+  moveCursor(6);
+  printf("| |\n");
+
+  moveCursor(displace-5);
+  printf("| |");
+  moveCursor(6);
+  printf("| |\n");
+
+  moveCursor(displace-5);
+  printf("||");
+  moveCursor(8);
+  printf("||\n");
+}
+
+void printFoot(int flag){
+  moveCursor(displace-5-flag);
+  printf("|");
+  printf("---\\");
+  moveCursor(5-flag);
+  printf("|---\\\n");
+  moveCursor(displace-5-flag);
+  printf("-----");
+  moveCursor(5-flag);
+  printf("------\n\n\n");
+}
+
+void printBody(int flag){
+  if(flag)
+    printUpperBody();
+  else
+    printAlterUpperBody();
+  printLowerBody();
+  printFoot(flag);
+}
+void sleep(time_t delay){
+  time_t start,end;
+  time(&start);
+  do{
+    time(&end);
+  }while((end-start)<delay);
+}
+
+int main(int argv, char **argc){
+  int i=0,j=0,k=0,p=0,flag = 0;
+  float l = 1.0;
+  do{
+    j = system("clear");
+    printf("\n");
+    if(flag)
+      displace += 2*i;
+    else
+      displace -= 2*i;
+    drawFace();
+    moveCursor(displace-5);
+    printf("____/ \\_____\n");
+    printBody(i);
+    moveCursor(displace-6);
+
+    i = (i+1)%2;
+
+    if(k > 70)
+      {
+      l = 0.99;
+      }
+    else
+      {
+      l = 1.0;
+      }
+
+      if(k == 100){
+      k = 0;
+      }
+    printf("Designed By: Puru");
+    sleep(l);
+    k++;
+    if(displace <= 20)
+      flag = 1;
+    if(displace >= 50)
+      flag = 0;
+
+  }while(1); 
+  //9916411611-Yashwant 9:00 am Novotol
+  getchar();
+  return 0;
+}
